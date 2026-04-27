@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Knotzer Imkerei</title>
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22Knotzer%20Imkerei%22%2C%22short_name%22%3A%22Imkerei%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231a1610%22%2C%22theme_color%22%3A%22%23c8860a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%2520viewBox%3D'0%200%20100%20100'%253E%253Crect%2520width%3D'100'%2520height%3D'100'%2520fill%3D'%25231a1610'%2520rx%3D'20'%2F%253E%253Ctext%2520y%3D'.9em'%2520font-size%3D'80'%2520x%3D'10'%253E%25F0%259F%2590%259D%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<meta name="theme-color" content="#c8860a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Knotzer Imkerei">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+:root {
+  --amber: #c8860a;
+  --amber-light: #f5d78e;
+  --amber-dark: #8a5c00;
+  --cream: #fdf6e3;
+  --dark: #1a1610;
+  --dark2: #2a2218;
+  --mid: #5a4a35;
+  --light: #ede0c4;
+  --border: #d4b870;
+  --green: #2d5a28;
+  --green-light: #e8f4e3;
+  --red: #7a1a1a;
+  --red-light: #fde8e8;
+  --yellow: #8a6a00;
+  --yellow-light: #fff8e0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--dark);
+  color: var(--cream);
+  min-height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.app-header {
+  background: var(--dark2);
+  padding: 14px 16px 10px;
+  border-bottom: 2px solid var(--amber);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--amber-light);
+  font-size: 1.15rem;
+  letter-spacing: 0.3px;
+}
+
+.app-header .subtitle {
+  font-size: 0.72rem;
+  color: #a09070;
+  margin-top: 1px;
+}
+
+/* NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  background: var(--dark2);
+  border-top: 1px solid #3a3020;
+  display: flex;
+  z-index: 100;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 10px 4px 8px;
+  background: none;
+  border: none;
+  color: #6a5a40;
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  transition: color 0.15s;
+}
+
+.nav-btn .icon { font-size: 1.3rem; }
+.nav-btn.active { color: var(--amber-light); }
+
+/* SCREENS */
+.screen { display: none; padding: 14px 14px 80px; }
+.screen.active { display: block; }
+
+/* DASHBOARD */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  background: var(--dark2);
+  border: 1px solid #3a3020;
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 0.65rem;
+  color: #8a7a60;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-top: 3px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--amber-light);
+  margin: 16px 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #3a3020;
+}
+
+/* STANDORT BUTTONS */
+.standort-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.standort-btn {
+  background: var(--dark2);
+  border: 1px solid #3a3020;
+  border-radius: 10px;
+  padding: 14px 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.standort-btn:hover, .standort-btn:active {
+  border-color: var(--amber);
+  background: #2a2010;
+}
+
+.standort-btn .s-name {
+  font-weight: 700;
+  color: var(--cream);
+  font-size: 0.95rem;
+}
+
+.standort-btn .s-count {
+  font-size: 0.75rem;
+  color: #8a7a60;
+  margin-top: 3px;
+}
+
+.standort-btn .s-status {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.s-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.s-dot-gut { background: #4a9a40; }
+.s-dot-acht { background: var(--amber); }
+.s-dot-krit { background: #c04040; }
+
+/* CARDS */
+.volk-card {
+  background: var(--dark2);
+  border: 1px solid #3a3020;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.volk-card:active { border-color: var(--amber); }
+
+.volk-card-inner {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 12px;
+}
+
+.volk-nr-badge {
+  background: var(--amber);
+  color: var(--dark);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.volk-card.verstorben .volk-nr-badge {
+  background: #4a4040;
+  color: #8a7a70;
+}
+
+.volk-info { flex: 1; min-width: 0; }
+.volk-standort { font-size: 0.72rem; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.3px; }
+.volk-meta { font-size: 0.8rem; color: #a09070; margin-top: 2px; }
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.si-gut { background: #4a9a40; }
+.si-acht { background: var(--amber); }
+.si-krit { background: #c04040; }
+.si-tot { background: #5a5050; }
+
+.volk-tags {
+  padding: 0 12px 10px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.tag-weisell { background: var(--red-light); color: var(--red); }
+.tag-schwarm { background: var(--yellow-light); color: var(--yellow); }
+.tag-krank { background: #f0e0ff; color: #5a2080; }
+.tag-tot { background: #3a3030; color: #8a7a70; }
+
+/* FORMS */
+.form-section {
+  background: var(--dark2);
+  border: 1px solid #3a3020;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.form-section h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--amber-light);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #3a3020;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.form-row.full { grid-template-columns: 1fr; }
+
+label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #8a7a60;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #4a3a20;
+  border-radius: 7px;
+  background: #141008;
+  color: var(--cream);
+  font-family: inherit;
+  font-size: 0.88rem;
+  -webkit-appearance: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--amber);
+}
+
+textarea { resize: vertical; min-height: 70px; }
+
+select option { background: #1a1610; }
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.cb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #141008;
+  border: 1px solid #3a3020;
+  border-radius: 7px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: #c0b090;
+}
+
+.cb-item input[type=checkbox] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--amber);
+}
+
+.cb-item.checked {
+  border-color: var(--amber);
+  color: var(--amber-light);
+}
+
+/* BUTTONS */
+.btn {
+  padding: 11px 20px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.2px;
+}
+
+.btn-primary { background: var(--amber); color: var(--dark); }
+.btn-primary:active { background: var(--amber-dark); }
+.btn-secondary { background: #2a2218; color: #c0b090; border: 1px solid #4a3a20; }
+.btn-danger { background: var(--red); color: #fde8e8; }
+.btn-sm { padding: 7px 14px; font-size: 0.78rem; }
+.btn-full { width: 100%; }
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* BACK BTN */
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--amber);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* DETAIL */
+.detail-hero {
+  background: linear-gradient(135deg, var(--dark2), #2a1e08);
+  border: 1px solid var(--amber);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.detail-nr {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.detail-sub { font-size: 0.8rem; color: #a09070; margin-top: 4px; }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.info-cell {
+  background: var(--dark2);
+  border: 1px solid #3a3020;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.info-cell .lbl { font-size: 0.65rem; color: #6a5a40; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 700; }
+.info-cell .val { font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-top: 2px; }
+
+/* KONTROLLE ITEMS */
+.kontrolle-item {
+  background: var(--dark2);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.k-datum { font-size: 0.7rem; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.3px; }
+.k-text { font-size: 0.85rem; color: #c0b090; margin-top: 4px; }
+.k-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+
+/* MIC BUTTON */
+.mic-btn {
+  background: #2a2218;
+  border: 1px solid #4a3a20;
+  border-radius: 7px;
+  color: var(--amber);
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.mic-btn.recording {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.input-with-mic {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.input-with-mic textarea { flex: 1; }
+
+/* FILTER */
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+  padding: 5px 13px;
+  border: 1px solid #4a3a20;
+  border-radius: 20px;
+  background: var(--dark2);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  color: #8a7a60;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.filter-chip.active {
+  background: var(--amber);
+  color: var(--dark);
+  border-color: var(--amber);
+}
+
+/* SEARCH */
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #4a3a20;
+  border-radius: 8px;
+  background: var(--dark2);
+  color: var(--cream);
+  font-family: inherit;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+/* ERNTE */
+.ernte-card {
+  background: var(--dark2);
+  border: 1px solid #3a3020;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.ernte-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ernte-datum { font-size: 0.72rem; color: #8a7a60; font-weight: 700; text-transform: uppercase; }
+.ernte-kg { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--amber); }
+.ernte-kg span { font-size: 0.75rem; color: #8a7a60; font-family: inherit; }
+.ernte-meta { font-size: 0.8rem; color: #a09070; }
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #5a4a30;
+}
+
+.empty .e-icon { font-size: 3rem; margin-bottom: 10px; }
+
+/* LOADING */
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: #6a5a40;
+  font-size: 0.85rem;
+}
+
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 72px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  background: var(--amber);
+  border: none;
+  border-radius: 50%;
+  color: var(--dark);
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(200,134,10,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: transform 0.15s;
+}
+
+.fab:active { transform: scale(0.92); }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--dark2);
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px 16px 30px;
+  border-top: 2px solid var(--amber);
+}
+
+.modal h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--amber-light);
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--amber);
+  color: var(--dark);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  z-index: 300;
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+
+.toast.show { opacity: 1; }
+
+/* KRANKHEITEN */
+.krankheit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.k-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #141008;
+  border: 1px solid #3a3020;
+  border-radius: 6px;
+  padding: 7px 9px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: #a09080;
+}
+
+.k-check input { width: 14px; height: 14px; accent-color: #c04040; flex-shrink: 0; }
+.k-check.checked { border-color: #c04040; color: #fde8e8; }
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <h1>🐝 Knotzer Imkerei</h1>
+  <div class="subtitle" id="header-sub">Lade Daten...</div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<!-- SCREENS -->
+<div id="screen-home" class="screen active">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" id="s-total">–</div>
+      <div class="stat-lbl">Völker</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="s-acht" style="color:var(--amber-light)">–</div>
+      <div class="stat-lbl">Achtung</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="s-krit" style="color:#e07070">–</div>
+      <div class="stat-lbl">Kritisch</div>
+    </div>
+  </div>
+
+  <div class="section-title">Standorte</div>
+  <div class="standort-grid" id="standort-buttons">
+    <div class="loading">Lade...</div>
+  </div>
+  <button class="btn btn-secondary btn-sm" onclick="showScreen('standorte')">Standorte verwalten</button>
+
+  <div class="section-title">Letzte Kontrollen</div>
+  <div id="letzte-kontrollen"><div class="loading">Lade...</div></div>
+</div>
+
+<div id="screen-voelker" class="screen">
+  <input class="search-input" type="text" placeholder="🔍 Volk suchen..." id="volk-suche" oninput="renderVoelkerListe()">
+  <div class="filter-bar">
+    <button class="filter-chip active" onclick="setVFilter('alle',this)">Alle</button>
+    <button class="filter-chip" onclick="setVFilter('gut',this)">✓ Gut</button>
+    <button class="filter-chip" onclick="setVFilter('acht',this)">⚠ Achtung</button>
+    <button class="filter-chip" onclick="setVFilter('krit',this)">✗ Kritisch</button>
+    <button class="filter-chip" onclick="setVFilter('weisell',this)">Weissellos</button>
+    <button class="filter-chip" onclick="setVFilter('schwarm',this)">Schwarm</button>
+    <button class="filter-chip" onclick="setVFilter('tot',this)">Verstorben</button>
+  </div>
+  <div id="voelker-liste"><div class="loading">Lade...</div></div>
+</div>
+
+<div id="screen-ernte" class="screen">
+  <div class="section-title">Ernte-Protokoll</div>
+  <div id="ernte-liste"><div class="loading">Lade...</div></div>
+</div>
+
+<div id="screen-standorte" class="screen">
+  <button class="back-btn" onclick="showScreen('home')">← Zurück</button>
+  <div class="section-title">Standorte</div>
+  <div id="standorte-liste"></div>
+  <button class="btn btn-primary btn-sm" onclick="openStandortModal()">+ Standort hinzufügen</button>
+</div>
+
+<div id="screen-detail" class="screen">
+  <button class="back-btn" onclick="showScreen('voelker')">← Völker</button>
+  <div id="detail-content"></div>
+</div>
+
+<!-- FABs -->
+<button class="fab" id="fab-btn" onclick="handleFab()">+</button>
+
+<!-- NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="showScreen('home')" data-screen="home">
+    <span class="icon">🏠</span>Start
+  </button>
+  <button class="nav-btn" onclick="showScreen('voelker')" data-screen="voelker">
+    <span class="icon">🐝</span>Völker
+  </button>
+  <button class="nav-btn" onclick="showScreen('ernte')" data-screen="ernte">
+    <span class="icon">🍯</span>Ernte
+  </button>
+</nav>
+
+<!-- MODAL: VOLK -->
+<div class="modal-overlay" id="modal-volk">
+<div class="modal">
+  <h2 id="volk-modal-titel">Neues Volk</h2>
+  <input type="hidden" id="v-id">
+
+  <div class="form-section">
+    <h3>Stammdaten</h3>
+    <div class="form-row">
+      <div><label>Volk-Nr. *</label><input id="v-nr" type="text" placeholder="z.B. 42"></div>
+      <div>
+        <label>Standort</label>
+        <select id="v-standort">
+          <option value="">– wählen –</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Beute-Typ</label>
+        <select id="v-beute">
+          <option>Zander Voll</option>
+          <option>Zander Flach</option>
+          <option>Dadant</option>
+          <option>Sonstige</option>
+        </select>
+      </div>
+      <div>
+        <label>Status</label>
+        <select id="v-status">
+          <option value="gut">✓ Gut</option>
+          <option value="acht">⚠ Achtung</option>
+          <option value="krit">✗ Kritisch</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Königin</h3>
+    <div class="form-row">
+      <div><label>Jahrgang</label><input id="v-koe-jahr" type="number" placeholder="2024" min="2015" max="2030"></div>
+      <div><label>Herkunft</label><input id="v-koe-herkunft" type="text" placeholder="Eigenzucht"></div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Gezeichnet</label>
+        <select id="v-koe-gezeichnet">
+          <option value="false">Nein</option>
+          <option value="true">Ja</option>
+        </select>
+      </div>
+      <div>
+        <label>Markierungsfarbe</label>
+        <select id="v-koe-farbe">
+          <option value="">–</option>
+          <option>Weiß (2021/2026)</option>
+          <option>Gelb (2022/2027)</option>
+          <option>Rot (2023/2028)</option>
+          <option>Grün (2024/2029)</option>
+          <option>Blau (2025/2030)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Zustand</h3>
+    <div class="form-row">
+      <div>
+        <label>Volksstärke</label>
+        <select id="v-staerke">
+          <option value="">–</option>
+          <option>Stark (8-10 Waben)</option>
+          <option>Mittel (5-7 Waben)</option>
+          <option>Schwach (&lt;5 Waben)</option>
+        </select>
+      </div>
+      <div><label>Letzte Varroabeh.</label><input id="v-varroa" type="date"></div>
+    </div>
+    <div class="checkbox-grid">
+      <label class="cb-item" id="cb-weisell"><input type="checkbox" id="v-weisell"> Weissellos</label>
+      <label class="cb-item" id="cb-schwarm"><input type="checkbox" id="v-schwarm"> Schwarmdruck</label>
+      <label class="cb-item" id="cb-friedl"><input type="checkbox" id="v-friedl"> Friedlich</label>
+      <label class="cb-item" id="cb-wabenbau"><input type="checkbox" id="v-wabenbau"> Guter Wabenbau</label>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Verstorben</label>
+        <select id="v-verstorben" onchange="toggleVerstorben()">
+          <option value="false">Nein</option>
+          <option value="true">Ja</option>
+        </select>
+      </div>
+      <div><label>Datum</label><input id="v-verstorben-datum" type="date" style="display:none"></div>
+    </div>
+    <div id="v-verstorben-ursache-row" style="display:none" class="form-row full">
+      <div><label>Todesursache</label><input id="v-verstorben-ursache" type="text" placeholder="z.B. Varroose, Hungersnot..."></div>
+    </div>
+    <div class="form-row full">
+      <div><label>Bemerkung</label><textarea id="v-bemerkung" placeholder="Besonderheiten..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="speichernVolk()">Speichern</button>
+    <button class="btn btn-secondary" onclick="closeModal('modal-volk')">Abbrechen</button>
+    <button class="btn btn-danger btn-sm" id="v-loeschen-btn" style="display:none;margin-left:auto" onclick="loeschenVolk()">Löschen</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL: KONTROLLE -->
+<div class="modal-overlay" id="modal-kontrolle">
+<div class="modal">
+  <h2 id="k-modal-titel">Kontrolle eintragen</h2>
+  <input type="hidden" id="k-volk-id">
+
+  <div class="form-section">
+    <h3>Grunddaten</h3>
+    <div class="form-row">
+      <div><label>Datum</label><input id="k-datum" type="date"></div>
+      <div>
+        <label>Status</label>
+        <select id="k-status">
+          <option value="gut">✓ Gut</option>
+          <option value="acht">⚠ Achtung</option>
+          <option value="krit">✗ Kritisch</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row full">
+      <div>
+        <label>Befund / Beobachtung</label>
+        <div class="input-with-mic">
+          <textarea id="k-befund" placeholder="Was wurde beobachtet?"></textarea>
+          <button class="mic-btn" id="mic-btn" onclick="toggleMic()" title="Spracheingabe">🎤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Volk-Zustand</h3>
+    <div class="checkbox-grid">
+      <label class="cb-item"><input type="checkbox" id="k-weisell"> Weissellos</label>
+      <label class="cb-item"><input type="checkbox" id="k-schwarm"> Schwarmstimmung</label>
+      <label class="cb-item"><input type="checkbox" id="k-weiselzellen"> Weiselzellen</label>
+      <label class="cb-item"><input type="checkbox" id="k-drohnenbruetig"> Drohnenbrütig</label>
+    </div>
+    <div class="form-row">
+      <div><label>Schwarm-Stufe</label>
+        <select id="k-schwarm-stufe">
+          <option value="">–</option>
+          <option>Stufe 1 – leicht</option>
+          <option>Stufe 2 – mittel</option>
+          <option>Stufe 3 – stark</option>
+        </select>
+      </div>
+      <div><label>Weiselzellen Anzahl</label><input id="k-weiselzellen-anz" type="number" placeholder="0" min="0"></div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Polleneinlagerung</label>
+        <select id="k-pollen">
+          <option value="">–</option>
+          <option>Viel</option>
+          <option>Mittel</option>
+          <option>Wenig</option>
+        </select>
+      </div>
+      <div>
+        <label>Volksstärke</label>
+        <select id="k-staerke">
+          <option value="">–</option>
+          <option>Stark (8-10 Waben)</option>
+          <option>Mittel (5-7 Waben)</option>
+          <option>Schwach (&lt;5 Waben)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Honigraum</h3>
+    <div class="form-row">
+      <div><label>Aufgesetzt am</label><input id="k-hr-auf" type="date"></div>
+      <div><label>Abgenommen am</label><input id="k-hr-ab" type="date"></div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Honigeintrag</label>
+        <select id="k-honigeintrag">
+          <option value="">–</option>
+          <option>Sehr gut</option>
+          <option>Gut</option>
+          <option>Mittel</option>
+          <option>Schwach</option>
+        </select>
+      </div>
+      <div><label>Verdeckelungsstand</label><input id="k-verdeckelung" type="text" placeholder="z.B. ¾ verdeckelt"></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Drohnenrahmen</h3>
+    <div class="form-row">
+      <div><label>Dazugegeben am</label><input id="k-dr-gegeben" type="date"></div>
+      <div><label>Geschnitten am</label><input id="k-dr-geschnitten" type="date"></div>
+    </div>
+    <div>
+      <label class="cb-item" style="display:inline-flex;margin-bottom:10px"><input type="checkbox" id="k-bogenschnitt"> Bogenschnitt durchgeführt</label>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Fütterung & Behandlung</h3>
+    <div class="checkbox-grid">
+      <label class="cb-item"><input type="checkbox" id="k-futter"> Futter gegeben</label>
+    </div>
+    <div class="form-row" id="k-futter-details" style="display:none">
+      <div><label>Menge</label><input id="k-futter-menge" type="text" placeholder="z.B. 2kg"></div>
+      <div><label>Art</label><input id="k-futter-art" type="text" placeholder="z.B. Zuckerlösung"></div>
+    </div>
+    <div class="form-row">
+      <div><label>Oxalsäurestreifen</label><input id="k-oxal" type="date"></div>
+      <div><label>Ameisensäure</label><input id="k-ameise" type="date"></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Krankheiten</h3>
+    <div class="krankheit-grid">
+      <label class="k-check"><input type="checkbox" value="AFB"> AFB (Amerik. Faulbrut)</label>
+      <label class="k-check"><input type="checkbox" value="EFB"> EFB (Europ. Faulbrut)</label>
+      <label class="k-check"><input type="checkbox" value="Kalkbrut"> Kalkbrut</label>
+      <label class="k-check"><input type="checkbox" value="Nosemose"> Nosemose</label>
+      <label class="k-check"><input type="checkbox" value="Ruhr"> Ruhr</label>
+      <label class="k-check"><input type="checkbox" value="Sackbrut"> Sackbrut</label>
+      <label class="k-check"><input type="checkbox" value="Varroose"> Varroose</label>
+      <label class="k-check"><input type="checkbox" value="Vergiftung"> Vergiftungsverdacht</label>
+    </div>
+    <div class="form-row full" style="margin-top:8px">
+      <div><label>Sonstige Krankheit</label><input id="k-krankheit-sonstige" type="text" placeholder="Freitext..."></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="speichernKontrolle()">Eintragen</button>
+    <button class="btn btn-secondary" onclick="closeModal('modal-kontrolle')">Abbrechen</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL: ERNTE -->
+<div class="modal-overlay" id="modal-ernte">
+<div class="modal">
+  <h2>Ernte eintragen</h2>
+  <input type="hidden" id="e-id">
+  <div class="form-section">
+    <h3>Ernte-Daten</h3>
+    <div class="form-row">
+      <div><label>Datum *</label><input id="e-datum" type="date"></div>
+      <div>
+        <label>Standort</label>
+        <select id="e-standort">
+          <option value="">– wählen –</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div><label>Kg gesamt *</label><input id="e-kg" type="number" placeholder="0.0" step="0.1" min="0"></div>
+      <div><label>Anzahl Völker</label><input id="e-voelker" type="number" placeholder="0" min="0"></div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Honigsorte</label>
+        <select id="e-sorte">
+          <option value="">– wählen –</option>
+          <option>Blütenhonig</option>
+          <option>Raps</option>
+          <option>Akazie</option>
+          <option>Kirschblüte</option>
+          <option>Linde</option>
+          <option>Buchweizen</option>
+          <option>Kastanie</option>
+          <option>Sonnenblume</option>
+          <option>Spättracht</option>
+          <option>Waldhonig</option>
+          <option>Gemischt</option>
+          <option>Sonstige</option>
+        </select>
+      </div>
+      <div><label>Qualitätsnotiz</label><input id="e-qualitaet" type="text" placeholder="z.B. Wassergehalt 17%"></div>
+    </div>
+    <div class="form-row full">
+      <div><label>Bemerkung</label><textarea id="e-bemerkung" placeholder="Besonderheiten dieser Ernte..."></textarea></div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="speichernErnte()">Speichern</button>
+    <button class="btn btn-secondary" onclick="closeModal('modal-ernte')">Abbrechen</button>
+    <button class="btn btn-danger btn-sm" id="e-loeschen-btn" style="display:none;margin-left:auto" onclick="loeschenErnte()">Löschen</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL: STANDORT -->
+<div class="modal-overlay" id="modal-standort">
+<div class="modal">
+  <h2>Standort</h2>
+  <input type="hidden" id="st-id">
+  <div class="form-section">
+    <div class="form-row">
+      <div><label>Name *</label><input id="st-name" type="text" placeholder="z.B. Donnerskirchen"></div>
+      <div><label>Ort</label><input id="st-ort" type="text" placeholder="z.B. Burgenland"></div>
+    </div>
+    <div class="form-row full">
+      <div><label>Bemerkung</label><textarea id="st-bemerkung" placeholder="Besonderheiten, Trachtpflanzen..."></textarea></div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="speichernStandort()">Speichern</button>
+    <button class="btn btn-secondary" onclick="closeModal('modal-standort')">Abbrechen</button>
+    <button class="btn btn-danger btn-sm" id="st-loeschen-btn" style="display:none;margin-left:auto" onclick="loeschenStandort()">Löschen</button>
+  </div>
+</div>
+</div>
+
+<!-- SPLASH SCREEN -->
+<div id="splash" style="
+  position:fixed;inset:0;background:#1a1610;z-index:999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.4s;
+">
+  <div style="font-size:5rem;margin-bottom:16px;animation:bounce 1s ease infinite">🐝</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#f5d78e;letter-spacing:1px">Knotzer Imkerei</div>
+  <div style="font-size:0.8rem;color:#6a5a40;margin-top:8px">Stockkarte · Ernte · Standorte</div>
+  <div style="margin-top:30px;width:40px;height:3px;background:#3a3020;border-radius:2px;overflow:hidden">
+    <div style="height:100%;background:#c8860a;animation:load 1.2s ease forwards"></div>
+  </div>
+</div>
+
+<!-- INSTALL BANNER -->
+<div id="install-banner" style="
+  display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  width:calc(100% - 28px);max-width:572px;
+  background:#2a2010;border:1px solid #c8860a;border-radius:12px;
+  padding:12px 14px;z-index:150;flex-direction:row;align-items:center;gap:10px;
+">
+  <span style="font-size:1.4rem">🐝</span>
+  <div style="flex:1">
+    <div style="font-size:0.85rem;font-weight:700;color:#f5d78e">Als App installieren</div>
+    <div style="font-size:0.72rem;color:#8a7a60">Zum Homescreen hinzufügen</div>
+  </div>
+  <button id="install-btn" style="background:#c8860a;color:#1a1610;border:none;border-radius:7px;padding:8px 14px;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:inherit">Installieren</button>
+  <button id="install-close" style="background:none;border:none;color:#6a5a40;font-size:1.2rem;cursor:pointer;padding:4px">✕</button>
+</div>
+
+<style>
+@keyframes bounce {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}
+}
+@keyframes load {
+  from{width:0} to{width:100%}
+}
+</style>
+<script>
+// DIREKTE REST API - kein Library-Problem
+const SB_URL = 'https://exibjrlhsqokotevzxif.supabase.co';
+const SB_KEY = 'sb_publishable_0FsMEP7fURCUlzdZ139YBQ_z-KRg9Zw';
+
+const sb = {
+  async query(table, params = '') {
+    const r = await fetch(`${SB_URL}/rest/v1/${table}${params}`, {
+      headers: {
+        'apikey': SB_KEY,
+        'Authorization': `Bearer ${SB_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      }
+    });
+    if (!r.ok) return { data: null, error: await r.text() };
+    return { data: await r.json(), error: null };
+  },
+  from(table) {
+    return {
+      select(cols = '*') {
+        let q = `?select=${cols}`;
+        let filters = [];
+        let orderStr = '';
+        let limitStr = '';
+        const obj = {
+          order(col, opts = {}) {
+            orderStr = `&order=${col}.${opts.ascending === false ? 'desc' : 'asc'}`;
+            return obj;
+          },
+          limit(n) {
+            limitStr = `&limit=${n}`;
+            return obj;
+          },
+          eq(col, val) {
+            filters.push(`${col}=eq.${val}`);
+            return obj;
+          },
+          async then(resolve) {
+            const f = filters.length ? '&' + filters.join('&') : '';
+            const { data, error } = await sb.query(table, q + f + orderStr + limitStr);
+            resolve({ data: data || [], error });
+          }
+        };
+        return obj;
+      },
+      async insert(data) {
+        const r = await fetch(`${SB_URL}/rest/v1/${table}`, {
+          method: 'POST',
+          headers: {
+            'apikey': SB_KEY,
+            'Authorization': `Bearer ${SB_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(data)
+        });
+        if (!r.ok) return { error: { message: await r.text() } };
+        return { data: await r.json(), error: null };
+      },
+      async update(data) {
+        let filters = [];
+        const obj = {
+          eq(col, val) { filters.push(`${col}=eq.${val}`); return obj; },
+          async then(resolve) {
+            const f = filters.length ? '?' + filters.join('&') : '';
+            const r = await fetch(`${SB_URL}/rest/v1/${table}${f}`, {
+              method: 'PATCH',
+              headers: {
+                'apikey': SB_KEY,
+                'Authorization': `Bearer ${SB_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+              },
+              body: JSON.stringify(data)
+            });
+            if (!r.ok) resolve({ error: { message: await r.text() } });
+            else resolve({ data: await r.json(), error: null });
+          }
+        };
+        return obj;
+      },
+      async delete() {
+        let filters = [];
+        const obj = {
+          eq(col, val) { filters.push(`${col}=eq.${val}`); return obj; },
+          async then(resolve) {
+            const f = filters.length ? '?' + filters.join('&') : '';
+            const r = await fetch(`${SB_URL}/rest/v1/${table}${f}`, {
+              method: 'DELETE',
+              headers: {
+                'apikey': SB_KEY,
+                'Authorization': `Bearer ${SB_KEY}`
+              }
+            });
+            resolve({ error: r.ok ? null : { message: await r.text() } });
+          }
+        };
+        return obj;
+      }
+    };
+  }
+};
+
+// STATE
+let voelker = [];
+let standorte = [];
+let kontrollen = [];
+let ernten = [];
+let vFilter = 'alle';
+let aktuellesVolk = null;
+let recognition = null;
+let isRecording = false;
+
+// INIT
+async function init() {
+  try {
+    await Promise.all([ladeStandorte(), ladeVoelker(), ladeKontrollenRecent(), ladeErnten()]);
+  } catch(e) {
+    console.error('Init Fehler:', e);
+    toast('Verbindungsfehler – prüfe Internet');
+  }
+  renderHome();
+  renderVoelkerListe();
+  renderErnten();
+  updateHeaderDate();
+  // Splash immer ausblenden
+  const splash = document.getElementById('splash');
+  if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.style.display = 'none', 400); }
+}
+
+function updateHeaderDate() {
+  document.getElementById('header-sub').textContent =
+    new Date().toLocaleDateString('de-AT', {weekday:'short', day:'2-digit', month:'2-digit', year:'numeric'});
+}
+
+// LOAD
+async function ladeStandorte() {
+  const r = await fetch(`${SB_URL}/rest/v1/standorte?select=*&order=name.asc`, {
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  standorte = r.ok ? await r.json() : [];
+}
+
+async function ladeVoelker() {
+  const r = await fetch(`${SB_URL}/rest/v1/voelker?select=*,standorte(name)&order=nr.asc`, {
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  voelker = r.ok ? await r.json() : [];
+}
+
+async function ladeKontrollenRecent() {
+  const r = await fetch(`${SB_URL}/rest/v1/kontrollen?select=*,voelker(nr,standorte(name))&order=datum.desc&limit=10`, {
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  kontrollen = r.ok ? await r.json() : [];
+}
+
+async function ladeErnten() {
+  const r = await fetch(`${SB_URL}/rest/v1/ernten?select=*,standorte(name)&order=datum.desc`, {
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  ernten = r.ok ? await r.json() : [];
+}
+
+async function ladeKontrollenFuerVolk(volkId) {
+  const r = await fetch(`${SB_URL}/rest/v1/kontrollen?select=*&volk_id=eq.${volkId}&order=datum.desc`, {
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  return r.ok ? await r.json() : [];
+}
+
+// SCREEN
+let currentScreen = 'home';
+
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.screen === name);
+  });
+  currentScreen = name;
+
+  const fab = document.getElementById('fab-btn');
+  fab.style.display = ['home','standorte','detail'].includes(name) ? 'none' : 'flex';
+  if (name === 'home') fab.style.display = 'none';
+
+  if (name === 'standorte') renderStandorteListe();
+  if (name === 'ernte') renderErnten();
+}
+
+function handleFab() {
+  if (currentScreen === 'voelker') openVolkModal();
+  if (currentScreen === 'ernte') openErnteModal();
+}
+
+// HOME
+function renderHome() {
+  const aktiv = voelker.filter(v => !v.verstorben);
+  document.getElementById('s-total').textContent = aktiv.length;
+  document.getElementById('s-acht').textContent = aktiv.filter(v => v.status === 'acht').length;
+  document.getElementById('s-krit').textContent = aktiv.filter(v => v.status === 'krit').length;
+
+  // Standort buttons
+  const grid = document.getElementById('standort-buttons');
+  if (standorte.length === 0) {
+    grid.innerHTML = '<div style="color:#5a4a30;font-size:0.85rem;grid-column:1/-1">Noch keine Standorte angelegt.</div>';
+  } else {
+    grid.innerHTML = standorte.map(st => {
+      const svs = voelker.filter(v => v.standort_id === st.id && !v.verstorben);
+      const acht = svs.filter(v => v.status === 'acht').length;
+      const krit = svs.filter(v => v.status === 'krit').length;
+      const gut = svs.length - acht - krit;
+      return `
+        <button class="standort-btn" onclick="filterNachStandort('${st.id}')">
+          <div class="s-name">${st.name}</div>
+          <div class="s-count">${svs.length} Völker</div>
+          <div class="s-status">
+            ${gut > 0 ? `<div class="s-dot s-dot-gut"></div>` : ''}
+            ${acht > 0 ? `<div class="s-dot s-dot-acht"></div>` : ''}
+            ${krit > 0 ? `<div class="s-dot s-dot-krit"></div>` : ''}
+          </div>
+        </button>
+      `;
+    }).join('');
+  }
+
+  // Letzte Kontrollen
+  const lk = document.getElementById('letzte-kontrollen');
+  if (kontrollen.length === 0) {
+    lk.innerHTML = '<div class="empty"><div class="e-icon">📋</div>Noch keine Kontrollen</div>';
+  } else {
+    lk.innerHTML = kontrollen.slice(0,5).map(k => `
+      <div class="kontrolle-item" onclick="zeigeDetail('${k.volk_id}')">
+        <div class="k-datum">${formatDatum(k.datum)} · Volk ${k.voelker?.nr || '?'} · ${k.voelker?.standorte?.name || ''}</div>
+        <div class="k-text">${k.befund || '(kein Befund)'}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function filterNachStandort(standortId) {
+  vFilter = 'alle';
+  document.querySelectorAll('.filter-chip').forEach((c,i) => c.classList.toggle('active', i===0));
+  showScreen('voelker');
+  document.getElementById('volk-suche').value = standorte.find(s=>s.id===standortId)?.name || '';
+  renderVoelkerListe();
+}
+
+// VÖLKER LISTE
+function renderVoelkerListe() {
+  const suche = document.getElementById('volk-suche').value.toLowerCase();
+  const liste = document.getElementById('voelker-liste');
+
+  let gefiltert = voelker.filter(v => {
+    const sName = v.standorte?.name || '';
+    const matchSuche = !suche || v.nr.toLowerCase().includes(suche) || sName.toLowerCase().includes(suche);
+    if (!matchSuche) return false;
+    if (vFilter === 'alle') return true;
+    if (vFilter === 'tot') return v.verstorben;
+    if (vFilter === 'weisell') return v.weisell;
+    if (vFilter === 'schwarm') return v.schwarm;
+    return v.status === vFilter && !v.verstorben;
+  });
+
+  if (gefiltert.length === 0) {
+    liste.innerHTML = '<div class="empty"><div class="e-icon">🐝</div>Keine Völker gefunden</div>';
+    return;
+  }
+
+  liste.innerHTML = gefiltert.map(v => {
+    const tags = [];
+    if (v.weisell) tags.push('<span class="tag tag-weisell">Weissellos</span>');
+    if (v.schwarm) tags.push('<span class="tag tag-schwarm">Schwarmdruck</span>');
+    if (v.verstorben) tags.push('<span class="tag tag-tot">Verstorben</span>');
+    const koeAlter = v.koe_jahrgang ? (new Date().getFullYear() - v.koe_jahrgang) + 'J' : '?';
+    const si = v.verstorben ? 'tot' : (v.status || 'gut');
+
+    return `
+      <div class="volk-card ${v.verstorben ? 'verstorben' : ''}" onclick="zeigeDetail('${v.id}')">
+        <div class="volk-card-inner">
+          <div class="volk-nr-badge">${v.nr}</div>
+          <div class="volk-info">
+            <div class="volk-standort">${v.standorte?.name || 'Kein Standort'}</div>
+            <div class="volk-meta">Königin ${v.koe_jahrgang || '?'} (${koeAlter}) · ${v.volkstaerke || 'Stärke unbek.'}</div>
+          </div>
+          <div class="status-indicator si-${si}"></div>
+        </div>
+        ${tags.length ? `<div class="volk-tags">${tags.join('')}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function setVFilter(f, btn) {
+  vFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVoelkerListe();
+}
+
+// DETAIL
+async function zeigeDetail(volkId) {
+  const v = voelker.find(x => x.id === volkId);
+  if (!v) return;
+  aktuellesVolk = v;
+  showScreen('detail');
+
+  const koeAlter = v.koe_jahrgang ? (new Date().getFullYear() - v.koe_jahrgang) : '?';
+  const si = v.verstorben ? 'tot' : (v.status || 'gut');
+  const statusLabel = {gut:'✓ Gut', acht:'⚠ Achtung', krit:'✗ Kritisch', tot:'✝ Verstorben'}[si];
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-hero">
+      <div>
+        <div style="font-size:0.65rem;color:#6a5a40;text-transform:uppercase;letter-spacing:0.5px">Volk</div>
+        <div class="detail-nr">${v.nr}</div>
+        <div class="detail-sub">${v.standorte?.name || 'Kein Standort'} · ${v.beute || 'Zander Voll'}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:0.75rem;color:#8a7a60;margin-bottom:6px">${statusLabel}</div>
+        <button class="btn btn-secondary btn-sm" onclick="editVolk('${v.id}')">Bearbeiten</button>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-cell">
+        <div class="lbl">Königin</div>
+        <div class="val">${v.koe_jahrgang || '–'} <span style="font-size:0.75rem;color:#6a5a40">(${koeAlter} J)</span></div>
+      </div>
+      <div class="info-cell">
+        <div class="lbl">Herkunft</div>
+        <div class="val">${v.koe_herkunft || '–'}</div>
+      </div>
+      <div class="info-cell">
+        <div class="lbl">Gezeichnet</div>
+        <div class="val">${v.koe_gezeichnet ? (v.koe_farbe || 'Ja') : 'Nein'}</div>
+      </div>
+      <div class="info-cell">
+        <div class="lbl">Volksstärke</div>
+        <div class="val">${v.volkstaerke || '–'}</div>
+      </div>
+    </div>
+
+    ${v.bemerkung ? `<div style="background:var(--dark2);border:1px solid #3a3020;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:0.85rem;color:#a09070">${v.bemerkung}</div>` : ''}
+
+    <button class="btn btn-primary btn-full" onclick="openKontrolleModal('${v.id}')">+ Kontrolle eintragen</button>
+
+    <div class="section-title" style="margin-top:16px">Kontrollhistorie</div>
+    <div id="kontrolle-historie"><div class="loading">Lade...</div></div>
+  `;
+
+  // Kontrollen laden
+  const ks = await ladeKontrollenFuerVolk(volkId);
+  const hist = document.getElementById('kontrolle-historie');
+  if (ks.length === 0) {
+    hist.innerHTML = '<div class="empty"><div class="e-icon">📋</div>Noch keine Kontrollen</div>';
+  } else {
+    hist.innerHTML = ks.map(k => {
+      const tags = [];
+      if (k.weissellos) tags.push('<span class="tag tag-weisell">Weissellos</span>');
+      if (k.schwarmstimmung) tags.push('<span class="tag tag-schwarm">Schwarm</span>');
+      if (k.krankheiten?.length) tags.push(`<span class="tag tag-krank">⚠ ${k.krankheiten.join(', ')}</span>`);
+      return `
+        <div class="kontrolle-item">
+          <div class="k-datum">${formatDatum(k.datum)} · ${k.status === 'gut' ? '✓ Gut' : k.status === 'acht' ? '⚠ Achtung' : '✗ Kritisch'}</div>
+          <div class="k-text">${k.befund || '(kein Befund)'}</div>
+          ${k.honigeintrag ? `<div class="k-text" style="color:var(--amber)">🍯 Honigeintrag: ${k.honigeintrag}</div>` : ''}
+          ${k.futter_gegeben ? `<div class="k-text">🍬 Futter: ${k.futter_menge || ''} ${k.futter_art || ''}</div>` : ''}
+          ${tags.length ? `<div class="k-tags">${tags.join('')}</div>` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+// MODAL: VOLK
+function openVolkModal(volk = null) {
+  document.getElementById('volk-modal-titel').textContent = volk ? `Volk ${volk.nr} bearbeiten` : 'Neues Volk';
+  document.getElementById('v-id').value = volk?.id || '';
+  document.getElementById('v-nr').value = volk?.nr || '';
+  document.getElementById('v-beute').value = volk?.beute || 'Zander Voll';
+  document.getElementById('v-status').value = volk?.status || 'gut';
+  document.getElementById('v-koe-jahr').value = volk?.koe_jahrgang || '';
+  document.getElementById('v-koe-herkunft').value = volk?.koe_herkunft || '';
+  document.getElementById('v-koe-gezeichnet').value = volk?.koe_gezeichnet ? 'true' : 'false';
+  document.getElementById('v-koe-farbe').value = volk?.koe_farbe || '';
+  document.getElementById('v-staerke').value = volk?.volkstaerke || '';
+  document.getElementById('v-varroa').value = volk?.letzte_varroa || '';
+  document.getElementById('v-weisell').checked = volk?.weisell || false;
+  document.getElementById('v-schwarm').checked = volk?.schwarm || false;
+  document.getElementById('v-friedl').checked = volk?.friedl || false;
+  document.getElementById('v-wabenbau').checked = volk?.wabenbau || false;
+  document.getElementById('v-verstorben').value = volk?.verstorben ? 'true' : 'false';
+  document.getElementById('v-verstorben-datum').value = volk?.verstorben_datum || '';
+  document.getElementById('v-verstorben-ursache').value = volk?.verstorben_ursache || '';
+  document.getElementById('v-bemerkung').value = volk?.bemerkung || '';
+  document.getElementById('v-loeschen-btn').style.display = volk ? 'block' : 'none';
+  toggleVerstorben();
+
+  // Standort dropdown
+  const sel = document.getElementById('v-standort');
+  sel.innerHTML = '<option value="">– wählen –</option>' +
+    standorte.map(s => `<option value="${s.id}" ${volk?.standort_id === s.id ? 'selected' : ''}>${s.name}</option>`).join('');
+
+  openModal('modal-volk');
+}
+
+function editVolk(id) {
+  const v = voelker.find(x => x.id === id);
+  if (v) openVolkModal(v);
+}
+
+function toggleVerstorben() {
+  const val = document.getElementById('v-verstorben').value === 'true';
+  document.getElementById('v-verstorben-datum').style.display = val ? 'block' : 'none';
+  document.getElementById('v-verstorben-ursache-row').style.display = val ? 'grid' : 'none';
+}
+
+async function speichernVolk() {
+  const nr = document.getElementById('v-nr').value.trim();
+  if (!nr) { toast('Volk-Nr. ist Pflichtfeld'); return; }
+  const id = document.getElementById('v-id').value;
+  const data = {
+    nr, 
+    standort_id: document.getElementById('v-standort').value || null,
+    beute: document.getElementById('v-beute').value,
+    status: document.getElementById('v-status').value,
+    koe_jahrgang: document.getElementById('v-koe-jahr').value || null,
+    koe_herkunft: document.getElementById('v-koe-herkunft').value || null,
+    koe_gezeichnet: document.getElementById('v-koe-gezeichnet').value === 'true',
+    koe_farbe: document.getElementById('v-koe-farbe').value || null,
+    volkstaerke: document.getElementById('v-staerke').value || null,
+    letzte_varroa: document.getElementById('v-varroa').value || null,
+    weisell: document.getElementById('v-weisell').checked,
+    schwarm: document.getElementById('v-schwarm').checked,
+    friedl: document.getElementById('v-friedl').checked,
+    wabenbau: document.getElementById('v-wabenbau').checked,
+    verstorben: document.getElementById('v-verstorben').value === 'true',
+    verstorben_datum: document.getElementById('v-verstorben-datum').value || null,
+    verstorben_ursache: document.getElementById('v-verstorben-ursache').value || null,
+    bemerkung: document.getElementById('v-bemerkung').value || null,
+  };
+
+  let err;
+  if (id) {
+    const r = await fetch(`${SB_URL}/rest/v1/voelker?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) err = { message: await r.text() };
+  } else {
+    const r = await fetch(`${SB_URL}/rest/v1/voelker`, {
+      method: 'POST',
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) err = { message: await r.text() };
+  }
+
+  if (err) { toast('Fehler: ' + err.message); return; }
+  closeModal('modal-volk');
+  await ladeVoelker();
+  renderVoelkerListe();
+  renderHome();
+  toast(id ? 'Gespeichert ✓' : 'Volk angelegt ✓');
+}
+
+async function loeschenVolk() {
+  const id = document.getElementById('v-id').value;
+  if (!id || !confirm('Volk wirklich löschen?')) return;
+  await fetch(`${SB_URL}/rest/v1/voelker?id=eq.${id}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  closeModal('modal-volk');
+  await ladeVoelker();
+  renderVoelkerListe();
+  renderHome();
+  showScreen('voelker');
+  toast('Volk gelöscht');
+}
+
+// MODAL: KONTROLLE
+function openKontrolleModal(volkId) {
+  document.getElementById('k-volk-id').value = volkId;
+  const v = voelker.find(x => x.id === volkId);
+  document.getElementById('k-modal-titel').textContent = `Kontrolle – Volk ${v?.nr || ''}`;
+  document.getElementById('k-datum').value = new Date().toISOString().split('T')[0];
+  document.getElementById('k-befund').value = '';
+  document.getElementById('k-status').value = 'gut';
+  // Reset alle checkboxen
+  ['k-weisell','k-schwarm','k-weiselzellen','k-drohnenbruetig','k-bogenschnitt','k-futter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.checked = false;
+  });
+  ['k-schwarm-stufe','k-pollen','k-staerke','k-honigeintrag'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  ['k-hr-auf','k-hr-ab','k-dr-gegeben','k-dr-geschnitten','k-oxal','k-ameise'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  ['k-verdeckelung','k-weiselzellen-anz','k-futter-menge','k-futter-art','k-krankheit-sonstige'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.querySelectorAll('.krankheit-grid input').forEach(cb => cb.checked = false);
+  document.getElementById('k-futter-details').style.display = 'none';
+  document.getElementById('k-futter').onchange = function() {
+    document.getElementById('k-futter-details').style.display = this.checked ? 'grid' : 'none';
+  };
+  openModal('modal-kontrolle');
+}
+
+async function speichernKontrolle() {
+  const volkId = document.getElementById('k-volk-id').value;
+  const befund = document.getElementById('k-befund').value.trim();
+  if (!befund) { toast('Bitte Befund eintragen'); return; }
+
+  const krankheiten = Array.from(document.querySelectorAll('.krankheit-grid input:checked')).map(cb => cb.value);
+  const sonstige = document.getElementById('k-krankheit-sonstige').value.trim();
+  if (sonstige) krankheiten.push(sonstige);
+
+  const data = {
+    volk_id: volkId,
+    datum: document.getElementById('k-datum').value,
+    status: document.getElementById('k-status').value,
+    befund,
+    schwarmstimmung: document.getElementById('k-schwarm').checked,
+    schwarmstimmung_stufe: document.getElementById('k-schwarm-stufe').value || null,
+    weiselzellen: document.getElementById('k-weiselzellen').checked,
+    weiselzellen_anzahl: parseInt(document.getElementById('k-weiselzellen-anz').value) || null,
+    weissellos: document.getElementById('k-weisell').checked,
+    drohnenbruetig: document.getElementById('k-drohnenbruetig').checked,
+    polleneinlagerung: document.getElementById('k-pollen').value || null,
+    honigraum_aufgesetzt: document.getElementById('k-hr-auf').value || null,
+    honigraum_abgenommen: document.getElementById('k-hr-ab').value || null,
+    honigeintrag: document.getElementById('k-honigeintrag').value || null,
+    verdeckelungsstand: document.getElementById('k-verdeckelung').value || null,
+    drohnenrahmen_gegeben: document.getElementById('k-dr-gegeben').value || null,
+    drohnenrahmen_geschnitten: document.getElementById('k-dr-geschnitten').value || null,
+    bogenschnitt: document.getElementById('k-bogenschnitt').checked,
+    futter_gegeben: document.getElementById('k-futter').checked,
+    futter_menge: document.getElementById('k-futter-menge').value || null,
+    futter_art: document.getElementById('k-futter-art').value || null,
+    behandlung_oxal: document.getElementById('k-oxal').value || null,
+    behandlung_ameise: document.getElementById('k-ameise').value || null,
+    krankheiten: krankheiten.length ? krankheiten : null,
+  };
+
+  const r = await fetch(`${SB_URL}/rest/v1/kontrollen`, {
+    method: 'POST',
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+    body: JSON.stringify(data)
+  });
+  if (!r.ok) { toast('Fehler: ' + await r.text()); return; }
+
+  await fetch(`${SB_URL}/rest/v1/voelker?id=eq.${volkId}`, {
+    method: 'PATCH',
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: data.status, weisell: data.weissellos, schwarm: data.schwarmstimmung })
+  });
+
+  closeModal('modal-kontrolle');
+  await ladeVoelker();
+  await ladeKontrollenRecent();
+  renderHome();
+  renderVoelkerListe();
+  toast('Kontrolle eingetragen ✓');
+  zeigeDetail(volkId);
+}
+
+// MIC
+function toggleMic() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    toast('Spracheingabe nicht verfügbar');
+    return;
+  }
+  if (isRecording) {
+    recognition?.stop();
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'de-AT';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.onresult = e => {
+    const text = e.results[0][0].transcript;
+    const ta = document.getElementById('k-befund');
+    ta.value = (ta.value ? ta.value + ' ' : '') + text;
+  };
+  recognition.onend = () => {
+    isRecording = false;
+    document.getElementById('mic-btn').classList.remove('recording');
+    document.getElementById('mic-btn').textContent = '🎤';
+  };
+  recognition.start();
+  isRecording = true;
+  document.getElementById('mic-btn').classList.add('recording');
+  document.getElementById('mic-btn').textContent = '⏹';
+}
+
+// ERNTE
+function renderErnten() {
+  const liste = document.getElementById('ernte-liste');
+  if (ernten.length === 0) {
+    liste.innerHTML = '<div class="empty"><div class="e-icon">🍯</div>Noch keine Ernte eingetragen</div>';
+    return;
+  }
+
+  // Gruppieren nach Jahr
+  const gruppen = {};
+  ernten.forEach(e => {
+    const jahr = e.datum?.substring(0,4) || '?';
+    if (!gruppen[jahr]) gruppen[jahr] = [];
+    gruppen[jahr].push(e);
+  });
+
+  liste.innerHTML = Object.entries(gruppen).sort((a,b) => b[0]-a[0]).map(([jahr, es]) => {
+    const total = es.reduce((s,e) => s + (parseFloat(e.kg_gesamt)||0), 0);
+    return `
+      <div class="section-title">${jahr} · ${total.toFixed(1)} kg gesamt</div>
+      ${es.map(e => `
+        <div class="ernte-card" onclick="editErnte('${e.id}')">
+          <div class="ernte-header">
+            <div>
+              <div class="ernte-datum">${formatDatum(e.datum)} · ${e.standorte?.name || 'Kein Standort'}</div>
+              <div class="ernte-meta">${e.honigsorte || 'Sorte unbekannt'} · ${e.anzahl_voelker || '?'} Völker</div>
+            </div>
+            <div class="ernte-kg">${e.kg_gesamt || '–'}<span> kg</span></div>
+          </div>
+          ${e.qualitaet ? `<div style="font-size:0.78rem;color:#8a7a60">${e.qualitaet}</div>` : ''}
+        </div>
+      `).join('')}
+    `;
+  }).join('');
+}
+
+function openErnteModal(ernte = null) {
+  document.getElementById('e-id').value = ernte?.id || '';
+  document.getElementById('e-datum').value = ernte?.datum || new Date().toISOString().split('T')[0];
+  document.getElementById('e-kg').value = ernte?.kg_gesamt || '';
+  document.getElementById('e-voelker').value = ernte?.anzahl_voelker || '';
+  document.getElementById('e-sorte').value = ernte?.honigsorte || '';
+  document.getElementById('e-qualitaet').value = ernte?.qualitaet || '';
+  document.getElementById('e-bemerkung').value = ernte?.bemerkung || '';
+  document.getElementById('e-loeschen-btn').style.display = ernte ? 'block' : 'none';
+
+  const sel = document.getElementById('e-standort');
+  sel.innerHTML = '<option value="">– wählen –</option>' +
+    standorte.map(s => `<option value="${s.id}" ${ernte?.standort_id === s.id ? 'selected' : ''}>${s.name}</option>`).join('');
+
+  openModal('modal-ernte');
+}
+
+function editErnte(id) {
+  const e = ernten.find(x => x.id === id);
+  if (e) openErnteModal(e);
+}
+
+async function speichernErnte() {
+  const kg = document.getElementById('e-kg').value;
+  const datum = document.getElementById('e-datum').value;
+  if (!kg || !datum) { toast('Datum und kg sind Pflichtfelder'); return; }
+
+  const id = document.getElementById('e-id').value;
+  const data = {
+    datum,
+    standort_id: document.getElementById('e-standort').value || null,
+    kg_gesamt: parseFloat(kg),
+    anzahl_voelker: parseInt(document.getElementById('e-voelker').value) || null,
+    honigsorte: document.getElementById('e-sorte').value || null,
+    qualitaet: document.getElementById('e-qualitaet').value || null,
+    bemerkung: document.getElementById('e-bemerkung').value || null,
+  };
+
+  let err;
+  if (id) {
+    const r = await fetch(`${SB_URL}/rest/v1/ernten?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) err = { message: await r.text() };
+  } else {
+    const r = await fetch(`${SB_URL}/rest/v1/ernten`, {
+      method: 'POST',
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) err = { message: await r.text() };
+  }
+
+  if (err) { toast('Fehler: ' + err.message); return; }
+  closeModal('modal-ernte');
+  await ladeErnten();
+  renderErnten();
+  toast('Ernte gespeichert ✓');
+}
+
+async function loeschenErnte() {
+  const id = document.getElementById('e-id').value;
+  if (!id || !confirm('Ernte löschen?')) return;
+  await fetch(`${SB_URL}/rest/v1/ernten?id=eq.${id}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  closeModal('modal-ernte');
+  await ladeErnten();
+  renderErnten();
+  toast('Ernte gelöscht');
+}
+
+// STANDORTE
+function renderStandorteListe() {
+  const liste = document.getElementById('standorte-liste');
+  if (standorte.length === 0) {
+    liste.innerHTML = '<div class="empty"><div class="e-icon">📍</div>Noch keine Standorte</div>';
+    return;
+  }
+  liste.innerHTML = standorte.map(s => {
+    const count = voelker.filter(v => v.standort_id === s.id).length;
+    return `
+      <div class="volk-card" onclick="openStandortModal('${s.id}')">
+        <div class="volk-card-inner">
+          <div class="volk-nr-badge" style="font-size:1.3rem">📍</div>
+          <div class="volk-info">
+            <div class="volk-standort">${s.ort || ''}</div>
+            <div style="font-weight:700;color:var(--cream)">${s.name}</div>
+            <div class="volk-meta">${count} Völker</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openStandortModal(id = null) {
+  const s = id ? standorte.find(x => x.id === id) : null;
+  document.getElementById('st-id').value = s?.id || '';
+  document.getElementById('st-name').value = s?.name || '';
+  document.getElementById('st-ort').value = s?.ort || '';
+  document.getElementById('st-bemerkung').value = s?.bemerkung || '';
+  document.getElementById('st-loeschen-btn').style.display = s ? 'block' : 'none';
+  openModal('modal-standort');
+}
+
+async function speichernStandort() {
+  const name = document.getElementById('st-name').value.trim();
+  if (!name) { toast('Name ist Pflichtfeld'); return; }
+  const id = document.getElementById('st-id').value;
+  const data = {
+    name,
+    ort: document.getElementById('st-ort').value || null,
+    bemerkung: document.getElementById('st-bemerkung').value || null,
+  };
+
+  let err;
+  if (id) {
+    const r = await fetch(`${SB_URL}/rest/v1/standorte?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) err = { message: await r.text() };
+  } else {
+    const r = await fetch(`${SB_URL}/rest/v1/standorte`, {
+      method: 'POST',
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) err = { message: await r.text() };
+  }
+
+  if (err) { toast('Fehler: ' + err.message); return; }
+  closeModal('modal-standort');
+  await ladeStandorte();
+  renderStandorteListe();
+  renderHome();
+  toast('Standort gespeichert ✓');
+}
+
+async function loeschenStandort() {
+  const id = document.getElementById('st-id').value;
+  if (!id || !confirm('Standort löschen?')) return;
+  await fetch(`${SB_URL}/rest/v1/standorte?id=eq.${id}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  closeModal('modal-standort');
+  await ladeStandorte();
+  renderStandorteListe();
+  renderHome();
+  toast('Standort gelöscht');
+}
+
+// UTILS
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function formatDatum(d) {
+  if (!d) return '–';
+  return new Date(d + 'T12:00:00').toLocaleDateString('de-AT', {day:'2-digit', month:'2-digit', year:'numeric'});
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Modals schließen bei Klick außerhalb
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// PWA INSTALL
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const banner = document.getElementById('install-banner');
+  if (banner) banner.style.display = 'flex';
+});
+
+document.getElementById('install-btn')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').style.display = 'none';
+});
+
+document.getElementById('install-close')?.addEventListener('click', () => {
+  document.getElementById('install-banner').style.display = 'none';
+});
+
+// START
+init();
+</script>
+</body>
+</html>
